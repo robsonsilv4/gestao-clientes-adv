@@ -2,6 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Pessoa
 from .forms import PessoaForm
+from django.views.generic.list import ListView
+
+
+class PessoaList(ListView):
+    model = Pessoa
+    # template_name = 'meu_template.html'
 
 
 @login_required
@@ -33,7 +39,7 @@ def pessoas_update(request, id):
 
 @login_required
 def pessoas_delete(request, id):
-    pessoa = get_object_or_404(Pessoa, pk=id)
+    pessoa = get_object_or_404(Pessoa, pk=idd)
     if request.method == 'POST':
         pessoa.delete()
         return redirect('pessoa_list')
