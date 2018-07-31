@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Clientes{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col"></div>
+
+        <div class="col-6">
+            <h3>Lista de Clientes</h3>
+            <ul class="list-group">
+                {% for pessoa in pessoas %}
+                    <li class="list-group-item">
+                        <a href="{% url 'pessoa_update' pessoa.id %}">
+                            {{ pessoa.first_name }}
+                        </a>
+                        <a class="trash-item" href="{% url 'pessoa_delete' pessoa.id %}">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <br>
+            <a class="btn btn-primary" href="{% url 'pessoa_new' %}">Adicionar</a>
+        </div>
+
+        <div class="col">
+            <p>
+                Olá, {{ user.username }}
+                <a href="{% url 'logout' %}">
+                    <span class="badge badge-dark">Sair</span>
+                </a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">Aplicação com Django 2 | &copy; Robson Silva</span>
+        </div>
+    </footer>
+{% endblock %}

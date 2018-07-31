@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Formulário{% endblock %}
+
+{% block main %}
+    <h3>Adicionar Cliente</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <button class="btn btn-primary" type="submit">Salvar</button>
+    </form>
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">Aplicação com Django 2 | &copy; Robson Silva</span>
+        </div>
+    </footer>
+{% endblock %}

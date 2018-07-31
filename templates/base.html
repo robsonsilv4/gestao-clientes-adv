@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Base{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sticky-footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            {% block main %}
+            {% endblock %}
+        </div>
+    </div>
+
+    {% block footer %}
+        <footer class="footer text-center">
+          <div class="container">
+            <span class="text-muted">Aplicação com Django 2 | &copy; Robson Silva</span>
+          </div>
+        </footer>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmação{% endblock %}
+
+{% block main %}
+    <h3>Deseja realmente deletar {{ pessoa.first_name }}?</h3>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmar</button>
+    </form>
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">Aplicação com Django 2 | &copy; Robson Silva</span>
+        </div>
+    </footer>
+{% endblock %}
