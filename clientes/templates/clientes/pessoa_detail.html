@@ -2,4 +2,6 @@
 <p>Nome: {{ object.first_name }}</p>
 <p>Sobrenome: {{ object.last_name }}</p>
 
+<a href="{% url 'pessoacbv_update' object.id %}">Atualizar</a>
+
 <p>Data: {{ now|date }}</p>

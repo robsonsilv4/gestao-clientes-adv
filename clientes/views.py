@@ -5,6 +5,8 @@ from .forms import PessoaForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView
+from django.urls import reverse_lazy
 from django.utils import timezone
 
 
@@ -33,6 +35,19 @@ class PessoCreate(CreateView):
         'photo'
     ]
     success_url = '/clientes/pessoa_list/'
+
+
+class PessoaUpdate(UpdateView):
+    model = Pessoa
+    fields = [
+        'first_name',
+        'last_name',
+        'age',
+        'salary',
+        'bio',
+        'photo'
+    ]
+    success_url = reverse_lazy('pessoacbv_list')
 
 
 @login_required
