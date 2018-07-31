@@ -4,8 +4,7 @@ from .models import Pessoa
 from .forms import PessoaForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.utils import timezone
 
@@ -47,6 +46,14 @@ class PessoaUpdate(UpdateView):
         'bio',
         'photo'
     ]
+
+    # success_url = reverse_lazy('pessoacbv_list')
+    def get_success_url(self):
+        return reverse_lazy('pessoacbv_list')
+
+
+class PessoaDelete(DeleteView):
+    model = Pessoa
     success_url = reverse_lazy('pessoacbv_list')
 
 

@@ -3,5 +3,6 @@
 <p>Sobrenome: {{ object.last_name }}</p>
 
 <a href="{% url 'pessoacbv_update' object.id %}">Atualizar</a>
+<a href="{% url 'pessoacbv_delete' object.id %}">Deletar</a>
 
 <p>Data: {{ now|date }}</p>

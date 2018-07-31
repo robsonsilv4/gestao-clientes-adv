@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import pessoas_list, pessoas_new, pessoas_update, pessoas_delete
-from .views import PessoaList, PessoaDetail, PessoCreate, PessoaUpdate
+from .views import PessoaList, PessoaDetail, PessoCreate, PessoaUpdate, PessoaDelete
 
 urlpatterns = [
     path('list/', pessoas_list, name='pessoa_list'),
@@ -10,5 +10,6 @@ urlpatterns = [
     path('pessoa_list/', PessoaList.as_view(), name='pessoacbv_list'),
     path('pessoa_detail/<int:pk>/', PessoaDetail.as_view(), name='pessoacbv_detail'),
     path('pessoa_update/<int:pk>/', PessoaUpdate.as_view(), name='pessoacbv_update'),
+    path('pessoa_delete/<int:pk>/', PessoaDelete.as_view(), name='pessoacbv_delete'),
     path('pessoa_create/', PessoCreate.as_view(), name='pessoacbv_create')
 ]
