@@ -4,6 +4,7 @@ from .models import Pessoa
 from .forms import PessoaForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 from django.utils import timezone
 
 
@@ -14,16 +15,24 @@ class PessoaList(ListView):
 
 class PessoaDetail(DetailView):
     model = Pessoa
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
         return context
 
 
-    
-
-        
+class PessoCreate(CreateView):
+    model = Pessoa
+    fields = [
+        'first_name',
+        'last_name',
+        'age',
+        'salary',
+        'bio',
+        'photo'
+    ]
+    success_url = '/clientes/pessoa_list/'
 
 
 @login_required
