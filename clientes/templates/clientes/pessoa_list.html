@@ -1,3 +1,6 @@
+<h1>Lista de Clientes:</h1>
+<ul>
 {% for pessoa in object_list %}
-    {{ pessoa }}
+    <li><a href="{% url 'pessoacbv_detail' pessoa.id %}">{{ pessoa }}</a></li>
 {% endfor %}
+</ul>

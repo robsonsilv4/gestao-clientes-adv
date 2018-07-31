@@ -3,11 +3,27 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Pessoa
 from .forms import PessoaForm
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.utils import timezone
 
 
 class PessoaList(ListView):
     model = Pessoa
     # template_name = 'meu_template.html'
+
+
+class PessoaDetail(DetailView):
+    model = Pessoa
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
+
+
+    
+
+        
 
 
 @login_required
