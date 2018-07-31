@@ -36,9 +36,5 @@
 {% endblock %}
 
 {% block footer %}
-    <footer class="footer text-center">
-        <div class="container">
-            <span class="text-muted">Aplicação com Django 2 | &copy; Robson Silva</span>
-        </div>
-    </footer>
+    {% include 'footer.html' with minha_var='Testo de teste' %}
 {% endblock %}

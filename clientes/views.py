@@ -59,8 +59,9 @@ class PessoaDelete(DeleteView):
 
 @login_required
 def pessoas_list(request):
+    footer_message = 'Aplicação com Django 2 | &copy; Robson Silva'
     pessoas = Pessoa.objects.all()
-    return render(request, 'person.html', {'pessoas': pessoas})
+    return render(request, 'person.html', {'pessoas': pessoas, 'footer_message': footer_message})
 
 
 @login_required
