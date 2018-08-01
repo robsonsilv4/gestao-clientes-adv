@@ -19,6 +19,10 @@ class PessoaList(ListView):
 class PessoaDetail(DetailView):
     model = Pessoa
 
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        return Pessoa.objects.select_related('num_doc').get(id=pk)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
