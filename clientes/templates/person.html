@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load filters %}
+{% load tags %}
 
 {% block title %}Clientes{% endblock %}
 
@@ -44,6 +45,10 @@
     <p>{% now 'd H' %}</p>
     <p>{{ footer_message|concatena }}</p>
     <p>{{ 123.4566|arredonda:4 }}</p>
+
+    <p>Hora do servidor:</p>
+    {% data_atual as hora %}
+    {{ hora }}
 
 {% endblock %}
 

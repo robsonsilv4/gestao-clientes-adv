@@ -2,7 +2,6 @@ from django import template
 
 register = template.Library()
 
-
 @register.filter
 def concatena(data):
     return data + '- Texto concatenado'
