@@ -28,6 +28,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['gestao-clientes-dh.herokuapp.com', 'localhost', '127.0.0.1']
 
+INTERNAL_IPS = ['127.0.0.1']
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrapform',
     'clientes',
-    'home'
+    'home',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'gestao_clientes.urls'
@@ -127,9 +131,9 @@ MEDIA_ROOT = 'media'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'pessoa_list'
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = ['static']
+STATICFILES_DIRS = ['statics']
 
 # Configurações para Amazon S3
 # AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
