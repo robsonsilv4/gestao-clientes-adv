@@ -1,6 +1,14 @@
+{% load filters %}
+{% load tags %}
+
 <footer class="footer text-center">
     <div class="container">
-        <span class="text-muted">{{ footer_message }}</span>
+        <span class="text-muted">Aplicação com Django 2 | &copy; Robson Silva</span>
         <span>{{ minha_var }}</span>
+
+        <div class="float-right">
+            {% data_atual as hora %}
+            <span class="text-muted">{{ hora }}</span>
+        </div>
     </div>
 </footer>

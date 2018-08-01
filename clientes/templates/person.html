@@ -1,6 +1,4 @@
 {% extends 'base.html' %}
-{% load filters %}
-{% load tags %}
 
 {% block title %}Clientes{% endblock %}
 
@@ -14,7 +12,7 @@
                 {% for pessoa in pessoas %}
                     <li class="list-group-item">
                         <a href="{% url 'pessoa_update' pessoa.id %}">
-                            {{ pessoa.first_name }}
+                            {{ pessoa.nome_completo|title }}
                         </a>
                         <a class="trash-item" href="{% url 'pessoa_delete' pessoa.id %}">
                             <i class="fas fa-trash"></i>
@@ -28,10 +26,6 @@
             <a class="btn btn-primary" href="{% url 'pessoa_new' %}">Adicionar</a>
         </div>
 
-        {% if pessoas|length > 2 %}
-            <p>Você tem bastante Clientes</p>
-        {% endif %}
-
         <div class="col">
             <p>
                 Olá, {{ user.username }}
@@ -42,16 +36,11 @@
         </div>
     </div>
 
-    <p>{% now 'd H' %}</p>
-    <p>{{ footer_message|concatena }}</p>
-    <p>{{ 123.4566|arredonda:4 }}</p>
-
-    <p>Hora do servidor:</p>
-    {% data_atual as hora %}
-    {{ hora }}
-
+    {% if pessoas|length > 100 %}
+        <p>Parabéns, você tem mais de 100 clientes!</p>
+    {% endif %}
 {% endblock %}
 
 {% block footer %}
-    {% include 'footer.html' with minha_var='Testo de teste' %}
+    {% include 'footer.html' %}
 {% endblock %}
