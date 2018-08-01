@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Pessoa
+from django.shortcuts import HttpResponse
+from .models import Pessoa, Produto
 from .forms import PessoaForm
+from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -55,6 +57,29 @@ class PessoaUpdate(UpdateView):
 class PessoaDelete(DeleteView):
     model = Pessoa
     success_url = reverse_lazy('pessoacbv_list')
+
+
+class ProdutoBulk(View):
+    def get(self, request):
+        produtos = [
+            'Banana',
+            'Maça',
+            'Pera',
+            'Abacaxi',
+            'Laranja',
+            'Maracujá',
+            'Limão',
+            'Acerola'
+        ]
+
+        lista_produtos = []
+        for produto in produtos:
+            p = Produto(descricao=produto, preco=10)
+            lista_produtos.append(p)
+
+        Produto.objects.bulk_create(lista_produtos)
+
+        return HttpResponse('Lista adicionada com sucesso')
 
 
 @login_required
