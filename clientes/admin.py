@@ -3,9 +3,15 @@ from .models import Pessoa, Documento, Produto, Venda
 
 
 class PessoaAdmin(admin.ModelAdmin):
-    # fields = ['first_name', 'last_name', 'age', 'salary']
-    exclude = ['bio']
-    list_display = ['id', 'first_name', 'last_name', 'age', 'salary', 'photo']
+    fieldsets = (
+        ('Dados Pessoais', {'fields': ('first_name', 'last_name', 'num_doc')}),
+        ('Dados Complementares', {'classes': ('collapse',),
+                                  'fields': ('age', 'salary', 'photo')})
+    )
+
+    # fields = [('first_name', 'last_name'), ('age', 'salary'), 'bio', 'photo']
+    # exclude = ['bio']
+    list_display = ['first_name', 'last_name', 'age', 'salary', 'photo']
 
 
 admin.site.register(Pessoa, PessoaAdmin)
