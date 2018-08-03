@@ -14,8 +14,8 @@ class PessoaAdmin(admin.ModelAdmin):
     # exclude = ['bio']
 
     list_filter = ('age', 'salary')
-
     list_display = ['first_name', 'last_name', 'age', 'salary', 'tem_foto']
+    search_fields = ['id', 'first_name']
 
     def tem_foto(self, obj):
         if obj.photo:
@@ -27,13 +27,14 @@ class PessoaAdmin(admin.ModelAdmin):
 
 
 class VendaAdmin(admin.ModelAdmin):
-    raw_id_fields = ('pessoa',)
+    # raw_id_fields = ('pessoa',)
     readonly_fields = ('valor',)
     list_filter = ('pessoa__num_doc', 'desconto')
     list_display = ('id', 'pessoa', 'total', 'nfe_emitida')
     search_fields = ('id', 'pessoa__first_name', 'pessoa__num_doc__num_doc')
     actions = [emitir_nfe, cancelar_nfe]
-    filter_horizontal = ['produtos']
+    autocomplete_fields = ['produtos', 'pessoa']
+    # filter_horizontal = ['produtos']
     # filter_vertical = ['produtos']
 
     def total(self, obj):
@@ -44,6 +45,7 @@ class VendaAdmin(admin.ModelAdmin):
 
 class ProdutoAdmin(admin.ModelAdmin):
     list_filter = ('preco',)
+    search_fields = ['id', 'descricao']
 
 
 admin.site.register(Pessoa, PessoaAdmin)
