@@ -33,6 +33,8 @@ class VendaAdmin(admin.ModelAdmin):
     list_display = ('id', 'pessoa', 'total', 'nfe_emitida')
     search_fields = ('id', 'pessoa__first_name', 'pessoa__num_doc__num_doc')
     actions = [emitir_nfe, cancelar_nfe]
+    filter_horizontal = ['produtos']
+    # filter_vertical = ['produtos']
 
     def total(self, obj):
         return obj.get_total()
