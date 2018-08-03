@@ -53,7 +53,9 @@ class Venda(models.Model):
         return str(self.numero)
 
 
-# @receiver(m2m_changed, sender=Venda.produtos.though)
+@receiver(m2m_changed, sender=Venda.produtos.through)
 def update_vendas_total(sender, instance, **kwargs):
-    total = instance.get_total()
+    instance.valor = instance.get_total()
     instance.save()
+    # total = instance.get_total()
+    # Venda.objects.filter(id=instance.id).update(valor=total)
