@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Pessoa, Documento, Produto, Venda
-from .actions import emitir_nfe, cancelar_nfe
+from .models import Pessoa, Documento
 
 
 class PessoaAdmin(admin.ModelAdmin):
@@ -26,29 +25,5 @@ class PessoaAdmin(admin.ModelAdmin):
     tem_foto.short_description = 'Possui Foto'
 
 
-class VendaAdmin(admin.ModelAdmin):
-    # raw_id_fields = ('pessoa',)
-    readonly_fields = ('valor',)
-    list_filter = ('pessoa__num_doc', 'desconto')
-    list_display = ('id', 'pessoa', 'total', 'nfe_emitida')
-    search_fields = ('id', 'pessoa__first_name', 'pessoa__num_doc__num_doc')
-    actions = [emitir_nfe, cancelar_nfe]
-    autocomplete_fields = ['produtos', 'pessoa']
-    # filter_horizontal = ['produtos']
-    # filter_vertical = ['produtos']
-
-    def total(self, obj):
-        return obj.get_total()
-
-    total.short_description = 'Total'
-
-
-class ProdutoAdmin(admin.ModelAdmin):
-    list_filter = ('preco',)
-    search_fields = ['id', 'descricao']
-
-
 admin.site.register(Pessoa, PessoaAdmin)
 admin.site.register(Documento)
-admin.site.register(Venda, VendaAdmin)
-admin.site.register(Produto, ProdutoAdmin)

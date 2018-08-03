@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import HttpResponse
-from .models import Pessoa, Produto
+from .models import Pessoa
+from produtos.models import Produto
 from .forms import PessoaForm
 from django.views import View
 from django.views.generic.list import ListView
