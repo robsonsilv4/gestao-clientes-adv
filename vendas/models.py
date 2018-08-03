@@ -23,7 +23,7 @@ class Venda(models.Model):
         return str(self.numero)
 
 
-class ItensDoPedido(models.Model):
+class ItemDoPedido(models.Model):
     venda = models.ForeignKey(Venda, on_delete=models.CASCADE)
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
     quantidade = models.FloatField()
