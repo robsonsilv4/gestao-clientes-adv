@@ -26,8 +26,11 @@ class PessoaAdmin(admin.ModelAdmin):
 
 
 class VendaAdmin(admin.ModelAdmin):
+    raw_id_fields = ('pessoa',)
+    readonly_fields = ('valor',)
     list_filter = ('pessoa__num_doc', 'desconto')
     list_display = ('id', 'pessoa', 'total')
+    search_fields = ('id', 'pessoa__first_name', 'pessoa__num_doc__num_doc')
 
     def total(self, obj):
         return obj.get_total()
