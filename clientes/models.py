@@ -42,6 +42,7 @@ class Venda(models.Model):
     imposto = models.DecimalField(max_digits=5, decimal_places=2)
     pessoa = models.ForeignKey(Pessoa, null=True, blank=True, on_delete=models.PROTECT)
     produtos = models.ManyToManyField(Produto, blank=True)
+    nfe_emitida = models.BooleanField(default=False)
 
     def get_total(self):
         total = 0

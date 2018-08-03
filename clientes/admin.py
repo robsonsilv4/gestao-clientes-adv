@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Pessoa, Documento, Produto, Venda
+from .actions import emitir_nfe, cancelar_nfe
 
 
 class PessoaAdmin(admin.ModelAdmin):
@@ -29,8 +30,9 @@ class VendaAdmin(admin.ModelAdmin):
     raw_id_fields = ('pessoa',)
     readonly_fields = ('valor',)
     list_filter = ('pessoa__num_doc', 'desconto')
-    list_display = ('id', 'pessoa', 'total')
+    list_display = ('id', 'pessoa', 'total', 'nfe_emitida')
     search_fields = ('id', 'pessoa__first_name', 'pessoa__num_doc__num_doc')
+    actions = [emitir_nfe, cancelar_nfe]
 
     def total(self, obj):
         return obj.get_total()
