@@ -1,9 +1,10 @@
-from django.db import models
-from django.db.models.signals import m2m_changed, post_save
-from django.dispatch import receiver
-from django.db.models import F, Aggregate, Sum, FloatField
-from produtos.models import Produto
 from clientes.models import Pessoa
+from django.db import models
+from django.db.models import F, Sum, FloatField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from produtos.models import Produto
+from .managers import VendaManager
 
 
 class Venda(models.Model):
@@ -13,6 +14,8 @@ class Venda(models.Model):
     imposto = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     pessoa = models.ForeignKey(Pessoa, null=True, blank=True, on_delete=models.PROTECT)
     nfe_emitida = models.BooleanField(default=False)
+
+    objects = VendaManager()
 
     def calcular_total(self):
         tot = self.itemdopedido_set.all().aggregate(

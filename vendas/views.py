@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from django.views import View
-from .models import Venda, ItemDoPedido
-from django.db.models import F, Sum, Avg, Min, Max, Count
+
+from .models import Venda
 
 
 class DashboardView(View):
     def get(self, request):
-        data = {'media': Venda.objects.all().aggregate(Avg('valor'))['valor__avg'],
-                'media_desc': Venda.objects.all().aggregate(Avg('desconto'))['desconto__avg'],
-                'min': Venda.objects.all().aggregate(Min('valor'))['valor__min'],
-                'total': Venda.objects.all().aggregate(Count('id'))['id__count'],
-                'total_nfe': Venda.objects.filter(nfe_emitida=True).aggregate(Count('id'))['id__count']}
+        data = {'media': Venda.objects.media,
+                'media_desc': Venda.objects.media_desconto,
+                'venda_min': Venda.objects.venda_min,
+                'venda_max': Venda.objects.venda_max,
+                'ped_total': Venda.objects.pedido_total,
+                'ped_tot_nfe': Venda.objects.pedido_total_nfe}
         return render(request, 'vendas/dashboard.html', data)
