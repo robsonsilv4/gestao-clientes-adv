@@ -1,10 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views import View
 
 from .models import Venda
 
 
 class DashboardView(View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.has_perm('vendas.ver_dashboard'):
+            return HttpResponse('Você não tem as permissões necessárias')
+
+        return super(DashboardView, self).dispatch(request, *args, **kwargs)
+
     def get(self, request):
         data = {'media': Venda.objects.media,
                 'media_desc': Venda.objects.media_desconto,

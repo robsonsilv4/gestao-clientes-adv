@@ -21,7 +21,7 @@ class Venda(models.Model):
         permissions = (
             ('setar_nfe', 'O usuário pode alterar a nfe'),
             ('permissao_teste', 'Permissao de teste'),
-            ('permissao_2', 'Outra permissão')
+            ('ver_dashboard', 'O usuário pode visualizar o dashboard')
         )
 
     def calcular_total(self):
