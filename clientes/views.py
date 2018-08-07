@@ -96,6 +96,11 @@ def pessoas_list(request):
 
 @login_required
 def pessoas_new(request):
+    if not request.user.has_perm('clientes.add_pessoa'):
+        return HttpResponse('Não autorizado!')
+    elif not request.user.is_superuser:
+        return HttpResponse('Não é superusuario')
+
     form = PessoaForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
