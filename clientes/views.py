@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import HttpResponse
 from .models import Pessoa
@@ -12,12 +13,11 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 
 
-class PessoaList(ListView):
+class PessoaList(LoginRequiredMixin, ListView):
     model = Pessoa
-    # template_name = 'meu_template.html'
 
 
-class PessoaDetail(DetailView):
+class PessoaDetail(LoginRequiredMixin, DetailView):
     model = Pessoa
 
     def get_object(self, queryset=None):
@@ -30,7 +30,7 @@ class PessoaDetail(DetailView):
         return context
 
 
-class PessoCreate(CreateView):
+class PessoCreate(LoginRequiredMixin, CreateView):
     model = Pessoa
     fields = [
         'first_name',
@@ -43,7 +43,7 @@ class PessoCreate(CreateView):
     success_url = '/clientes/pessoa_list/'
 
 
-class PessoaUpdate(UpdateView):
+class PessoaUpdate(LoginRequiredMixin, UpdateView):
     model = Pessoa
     fields = [
         'first_name',
@@ -59,7 +59,8 @@ class PessoaUpdate(UpdateView):
         return reverse_lazy('pessoacbv_list')
 
 
-class PessoaDelete(DeleteView):
+class PessoaDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ('clientes.deletar_clientes',)
     model = Pessoa
     success_url = reverse_lazy('pessoacbv_list')
 
