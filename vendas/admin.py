@@ -3,7 +3,6 @@ from .models import Venda, ItemDoPedido
 from .actions import emitir_nfe, cancelar_nfe
 
 
-# TabularInline/StackedInline
 class ItemDoPedidoInline(admin.TabularInline):
     model = ItemDoPedido
     extra = 1
@@ -18,10 +17,10 @@ class VendaAdmin(admin.ModelAdmin):
     autocomplete_fields = ['pessoa']
     inlines = [ItemDoPedidoInline]
 
-    def total(self, obj):
-        return obj.get_total()
-
-    total.short_description = 'Total'
+    # def total(self, obj):
+    #     return obj.calcular_total()
+    #
+    # total.short_description = 'Total'
 
 
 admin.site.register(Venda, VendaAdmin)
