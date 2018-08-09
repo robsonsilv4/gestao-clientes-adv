@@ -1,4 +1,7 @@
 <h1>Lista de Clientes:</h1>
+
+{{ message }}
+
 <ul>
 {% for pessoa in object_list %}
     <li><a href="{% url 'pessoacbv_detail' pessoa.id %}">{{ pessoa }}</a></li>
