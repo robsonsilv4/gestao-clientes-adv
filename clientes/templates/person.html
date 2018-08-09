@@ -28,7 +28,7 @@
 
         <div class="col">
             <p>
-                Olá, {{ user.username }}
+                {{ request.session.message }}
                 <a href="{% url 'logout' %}">
                     <span class="badge badge-dark">Sair</span>
                 </a>
