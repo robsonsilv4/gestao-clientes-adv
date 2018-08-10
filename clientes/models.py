@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.mail import send_mail, mail_admins
+from django.core.mail import send_mail, mail_admins, send_mass_mail
 from django.template.loader import render_to_string
 
 
@@ -39,8 +39,8 @@ class Pessoa(models.Model):
         send_mail(
             'Um novo cliente foi cadastrado',
             'O nome dele é: %s' % self.first_name,
-            'robsonsilv41-@gmail.com',
-            ['robsonsilv41-@gmail.com'],
+            'robsonsilv410@gmail.com',
+            ['robsonsilv410@gmail.com'],
             html_message=html_text,
             fail_silently=False,
         )
@@ -51,6 +51,13 @@ class Pessoa(models.Model):
             html_message=html_text,
             fail_silently=False,
         )
+
+        message1 = (
+            'Subject here', 'Here is the message', 'robsonsilv410@gmail.com',
+            ['robsonsilv410@gmail.com', 'robsonsilv410@gmail.com'])
+        message2 = (
+        'Another Subject', 'Here is another message', 'robsonsilv410@gmail.com', ['robsonsilv410@gmail.com'])
+        send_mass_mail((message1, message2), fail_silently=False)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
