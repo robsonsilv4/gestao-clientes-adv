@@ -30,17 +30,24 @@ ALLOWED_HOSTS = ['gestao-clientes-dh.herokuapp.com', 'localhost', '127.0.0.1']
 
 INTERNAL_IPS = ['127.0.0.1']
 
-ADMINS = [('Robson', 'robsonsilv410@gmail.com'),]
+ADMINS = [('Robson', 'robsonsilv410@gmail.com'), ]
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.google',
     'bootstrapform',
     'clientes',
     'vendas',
@@ -48,6 +55,8 @@ INSTALLED_APPS = [
     'home',
     'debug_toolbar'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,6 +89,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'gestao_clientes.wsgi.application'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -155,4 +169,3 @@ STATICFILES_DIRS = ['statics']
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 EMAIL_SERVER = 'empresa@gmail.com'
-
