@@ -36,28 +36,28 @@ class Pessoa(models.Model):
 
         data = {'cliente': self.first_name}
 
-        send_mail(
-            'Um novo cliente foi cadastrado',
-            'O nome dele é: %s' % self.first_name,
-            'robsonsilv410@gmail.com',
-            ['robsonsilv410@gmail.com'],
-            html_message=html_text,
-            fail_silently=False,
-        )
-
-        mail_admins(
-            'Um novo cliente foi cadastrado',
-            'O nome dele é: %s' % self.first_name,
-            html_message=html_text,
-            fail_silently=False,
-        )
-
-        message1 = (
-            'Subject here', 'Here is the message', 'robsonsilv410@gmail.com',
-            ['robsonsilv410@gmail.com', 'robsonsilv410@gmail.com'])
-        message2 = (
-        'Another Subject', 'Here is another message', 'robsonsilv410@gmail.com', ['robsonsilv410@gmail.com'])
-        send_mass_mail((message1, message2), fail_silently=False)
+        # send_mail(
+        #     'Um novo cliente foi cadastrado',
+        #     'O nome dele é: %s' % self.first_name,
+        #     'robsonsilv410@gmail.com',
+        #     ['robsonsilv410@gmail.com'],
+        #     html_message=html_text,
+        #     fail_silently=False,
+        # )
+        #
+        # mail_admins(
+        #     'Um novo cliente foi cadastrado',
+        #     'O nome dele é: %s' % self.first_name,
+        #     html_message=html_text,
+        #     fail_silently=False,
+        # )
+        #
+        # message1 = (
+        #     'Subject here', 'Here is the message', 'robsonsilv410@gmail.com',
+        #     ['robsonsilv410@gmail.com', 'robsonsilv410@gmail.com'])
+        # message2 = (
+        # 'Another Subject', 'Here is another message', 'robsonsilv410@gmail.com', ['robsonsilv410@gmail.com'])
+        # send_mass_mail((message1, message2), fail_silently=False)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
