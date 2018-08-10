@@ -30,6 +30,8 @@ ALLOWED_HOSTS = ['gestao-clientes-dh.herokuapp.com', 'localhost', '127.0.0.1']
 
 INTERNAL_IPS = ['127.0.0.1']
 
+ADMINS = [('Robson', 'robsonsilv410@gmail.com'),]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -152,4 +154,5 @@ STATICFILES_DIRS = ['statics']
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+EMAIL_SERVER = 'empresa@gmail.com'
 
