@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h3>Deseja realmente apagar esta venda?</h3>
+    <form action="{% url 'delete-pedido' venda.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Confirmar</button>
+    </form>
+{% endblock main %}
