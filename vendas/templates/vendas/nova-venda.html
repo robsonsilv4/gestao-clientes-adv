@@ -5,13 +5,13 @@
 {% block main %}
 <h1>Nova venda</h1>
 
-<h2>Cabeçalho da Venda número {{ venda_obj.numero }}</h2>
+<h2>Cabeçalho da Venda número {{ venda.numero }}</h2>
 <form action="{% url 'nova-venda' %}" method="post">
     {% csrf_token %}
     <input type="text" name="numero" value="{{ numero }}">
     <input type="text" name="desconto" value="{{ desconto }}">
 
-    <input type="hidden" name="venda_id" value="{{ venda_obj.id }}">
+    <input type="hidden" name="venda_id" value="{{ venda.id }}">
 
     <button class="btn btn-primary" type="submit">Enviar</button>
 </form>
@@ -20,8 +20,8 @@
 
 {% block extra %}
 
-{% if venda_obj %}
-<form action="{% url 'novo-item-pedido' %}" method="post">
+{% if venda %}
+<form action="{% url 'novo-item-pedido' %}" method="POST">
     {% csrf_token %}
     {{ form_item }}
     <button type="submit">Incluir</button>

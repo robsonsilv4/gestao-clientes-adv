@@ -27,13 +27,14 @@ class NovaVenda(View):
         return render(request, 'vendas/nova-venda.html')
 
     def post(self, request):
-        data = {'numero': request.POST['numero'],
-                'desconto': float(request.POST['numero']),
-                'venda': request.POST['venda_id']}
+        data = {'form_item': ItemDoPedidoForm(),
+                'numero': request.POST['numero'],
+                'desconto': float(request.POST['desconto'].replace(',', '.')),
+                'venda_id': request.POST['venda_id']}
 
-        if data['venda']:
-            venda = Venda.objects.get(id=data['venda'])
-            venda.desconto = ['numero']
+        if data['venda_id']:
+            venda = Venda.objects.get(id=data['venda_id'])
+            venda.desconto = ['desconto']
             venda.numero = data['numero']
             venda.save()
         else:
@@ -43,7 +44,7 @@ class NovaVenda(View):
             )
 
         itens = venda.itemdopedido_set.all()
-        data['venda_obj'] = venda
+        data['venda'] = venda
         data['itens'] = itens
 
         return render(request, 'vendas/nova-venda.html', data)
@@ -67,7 +68,7 @@ class NovoItemPedido(View):
         data['numero'] = item.venda.numero
         data['desconto'] = item.venda.desconto
         data['venda'] = item.venda.id
-        data['venda_obj'] = item.venda
+        data['venda'] = item.venda
         data['itens'] = item.venda.itemdopedido_set.all()
 
         return render(request, 'vendas/nova-venda', data)
@@ -77,3 +78,15 @@ class ListaVendas(View):
     def get(self, request):
         vendas = Venda.objects.all()
         return render(request, 'vendas/lista-vendas.html', {'vendas': vendas})
+
+
+class EditPedido(View):
+    def get(self, request, venda):
+        data = {}
+        venda = Venda.objects.get(id=venda)
+        data['form_item'] = ItemDoPedidoForm()
+        data['numero'] = venda.numero
+        data['desconto'] = float(venda.desconto)
+        data['venda'] = venda
+        data['itens'] = venda.itemdopedido_set.all()
+        return render(request, 'vendas/novo-pedido.html', data)
