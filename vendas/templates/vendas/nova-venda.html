@@ -3,51 +3,59 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block main %}
-<h1>Nova venda</h1>
 
-<h2>Cabeçalho da Venda número {{ venda.numero }}</h2>
-<form action="{% url 'nova-venda' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="numero" value="{{ numero }}">
-    <input type="text" name="desconto" value="{{ desconto }}">
+    <h1>Nova venda</h1>
 
-    <input type="hidden" name="venda_id" value="{{ venda.id }}">
+    <h2>Cabeçalho da Venda número {{ venda.numero }}</h2>
+    <form action="{% url 'nova-venda' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="numero" value="{{ numero }}">
+        <input type="text" name="desconto" value="{{ desconto }}">
 
-    <button class="btn btn-primary" type="submit">Enviar</button>
-</form>
+        <input type="hidden" name="venda_id" value="{{ venda.id }}">
+
+        <button class="btn btn-primary" type="submit">Enviar</button>
+    </form>
+
 {% endblock %}
 
 
 {% block extra %}
 
-{% if venda %}
-<form action="{% url 'novo-item-pedido' %}" method="POST">
-    {% csrf_token %}
-    {{ form_item }}
-    <button type="submit">Incluir</button>
-</form>
-
-<h3>Lista de Clientes</h3>
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Descrição</th>
-        <th>Quantidade</th>
-        <th>Desconto</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for item in itens %}
-    <tr>
-        <td>{{ item.id }}</td>
-        <td>{{ item.produto.descricao }}</td>
-        <td>{{ item.quantidade }}</td>
-        <td>{{ item.desconto }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% endif %}
+    {% if venda %}
+        <form action="{% url 'novo-item-pedido' venda.id %}" method="POST">
+            {% csrf_token %}
+            {{ form_item }}
+            <button type="submit">Incluir</button>
+        </form>
+    
+        <h3>Lista de Clientes</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Desconto</th>
+                <th>Excluir</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in itens %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.produto.descricao }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>{{ item.desconto }}</td>
+                    <td>
+                        <a href="{% url 'delete-item-pedido' item.id %}">
+                            Excluir
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 
 {% endblock %}
