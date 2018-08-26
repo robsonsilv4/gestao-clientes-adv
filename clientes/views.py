@@ -162,3 +162,13 @@ def api(request):
 
     # return JsonResponse(mensagem, status=404)
     return JsonResponse(l, safe=False)
+
+
+class APICBV(View):
+    def get(self, request):
+        l = []
+        produtos = Produto.objects.all()
+        for produto in produtos:
+            l.append(model_to_dict(produto))
+
+        return JsonResponse(l, safe=False)
