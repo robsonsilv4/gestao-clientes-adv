@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h3>Listagem de Vendas</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Número</th>
+                <th>Desconto</th>
+                <th>Valor</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venda in vendas %}
+                <tr>
+                    <td>{{ venda.id }}</td>
+                    <td>{{ venda.numero }}</td>
+                    <td>{{ venda.desconto }}</td>
+                    <td>{{ venda.valor }}</td>
+                    <td>
+                        <a href="#">Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock main %}

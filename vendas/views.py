@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 from django.views import View
 
 from .models import Venda
+from .forms import ItemDoPedidoForm
 
 
 class DashboardView(View):
@@ -32,6 +33,9 @@ class NovaVenda(View):
 
         if data['venda']:
             venda = Venda.objects.get(id=data['venda'])
+            venda.desconto = ['numero']
+            venda.numero = data['numero']
+            venda.save()
         else:
             venda = Venda.objects.create(
                 numero=data['numero'],
@@ -43,3 +47,33 @@ class NovaVenda(View):
         data['itens'] = itens
 
         return render(request, 'vendas/nova-venda.html', data)
+
+
+class NovoItemPedido(View):
+    def get(self, request, pk):
+        pass
+
+    def post(self, request, venda):
+        data = {}
+        item = ItemDoPedido.objects.create(
+            produto_id=request.POST['produto_id'],
+            quantidade=request.POST['quantidade'],
+            desconto=request.POST['desconto'],
+            venda_id=venda
+        )
+
+        data['item'] = item
+        data['form_item'] = ItemDoPedidoForm()
+        data['numero'] = item.venda.numero
+        data['desconto'] = item.venda.desconto
+        data['venda'] = item.venda.id
+        data['venda_obj'] = item.venda
+        data['itens'] = item.venda.itemdopedido_set.all()
+
+        return render(request, 'vendas/nova-venda', data)
+
+
+class ListaVendas(View):
+    def get(self, request):
+        vendas = Venda.objects.all()
+        return render(request, 'vendas/lista-vendas.html', {'vendas': vendas})
