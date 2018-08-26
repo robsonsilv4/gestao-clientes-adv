@@ -11,6 +11,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.http import JsonResponse
+from django.forms import model_to_dict
 
 
 class PessoaList(LoginRequiredMixin, ListView):
@@ -124,7 +126,10 @@ def pessoas_new(request):
 @login_required
 def pessoas_update(request, id):
     pessoa = get_object_or_404(Pessoa, pk=id)
-    form = PessoaForm(request.POST or None, request.FILES or None, instance=pessoa)
+    form = PessoaForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=pessoa)
 
     if form.is_valid():
         form.save()
@@ -135,9 +140,25 @@ def pessoas_update(request, id):
 
 @login_required
 def pessoas_delete(request, id):
-    pessoa = get_object_or_404(Pessoa, pk=idd)
+    pessoa = get_object_or_404(Pessoa, pk=id)
     if request.method == 'POST':
         pessoa.delete()
         return redirect('pessoa_list')
 
     return render(request, 'pessoa_delete_confirm.html', {'pessoa': pessoa})
+
+
+def api(request):
+    a = {'nome': 'Robson', 'idade': 22, 'profissao': 'Dev'}
+    mensagem = {'mensagem': 'Erro 404'}
+
+    produto = Produto.objects.last()
+    b = model_to_dict(produto)
+
+    produtos = Produto.objects.all()
+    l = []
+    for produto in produtos:
+        l.append(model_to_dict(produto))
+
+    # return JsonResponse(mensagem, status=404)
+    return JsonResponse(l, safe=False)
