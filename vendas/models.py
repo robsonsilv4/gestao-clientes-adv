@@ -49,6 +49,7 @@ class ItemDoPedido(models.Model):
     desconto = models.DecimalField(max_digits=5, decimal_places=2)
 
     class Meta:
+        unique_together = (('venda', 'produto'),)
         verbose_name_plural = 'Itens do Pedido'
 
     def __str__(self):
