@@ -14,12 +14,21 @@ class Pessoa(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     age = models.IntegerField()
+    telefone = models.CharField(max_length=14, null=True, blank=True)
     salary = models.DecimalField(max_digits=5, decimal_places=2)
     bio = models.TextField()
-    photo = models.ImageField(upload_to='clientes_photos', null=True, blank=True)
-    num_doc = models.OneToOneField(Documento, null=True, blank=True, on_delete=models.CASCADE)
+    photo = models.ImageField(
+        upload_to='clientes_photos',
+        null=True,
+        blank=True)
+    num_doc = models.OneToOneField(
+        Documento,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE)
 
     class Meta:
+        unique_together = (('first_name', 'telefone'),)
         permissions = (
             ('deletar_clientes', 'Permissão para deletar clientes'),
         )
