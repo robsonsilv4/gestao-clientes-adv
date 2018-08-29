@@ -27,8 +27,8 @@ urlpatterns = [
     path('vendas/', include('vendas.urls')),
     path('login/', auth_views.login, name='login'),
     # path('grappelli/', include('grappelli.urls')),
-    path('jet/', include('jet.urls'), name='jet'),
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+    # path('jet/', include('jet.urls'), name='jet'),
+    # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
