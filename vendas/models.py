@@ -8,10 +8,24 @@ from .managers import VendaManager
 
 
 class Venda(models.Model):
+    ABERTA = 'AB'
+    FECHADA = 'FC'
+    PROCESSANDO = 'PC'
+    DESCONHECIDO = 'DC'
+    STATUS = (
+        ('ABERTA', 'Aberta'),
+        ('FECHADA', 'Fechada'),
+        ('PROCESSANDO', 'Processando'),
+        ('DESCONHECIDO', 'Descohecido'),
+    )
     numero = models.IntegerField(auto_created=True, unique=True)
     valor = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     desconto = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     imposto = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    status = models.CharField(
+        max_length=2,
+        choices=STATUS,
+        default=DESCONHECIDO)
     pessoa = models.ForeignKey(
         Pessoa,
         null=True,
