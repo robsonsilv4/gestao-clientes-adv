@@ -2,6 +2,7 @@
 
 {% block main %}
     <h3>Listagem de Vendas</h3>
+    <p>Total: {{ count_vendas }} Vend{{ count_vendas|pluralize:"a,as" }}</p>
     <table class="table">
         <thead>
             <tr>
