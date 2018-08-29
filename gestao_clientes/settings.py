@@ -36,7 +36,9 @@ ADMINS = [('Robson', 'robsonsilv410@gmail.com'), ]
 
 INSTALLED_APPS = [
     # 'grappelli',
-    'suit',
+    # 'suit',
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
